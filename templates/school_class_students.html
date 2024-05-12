@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students for {{ school_class }}</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #fafafa, #eaeaea, #fafafa);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            font-family: Arial, sans-serif;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        h1 {
+            color: #007bff;
+            margin-top: 30px;
+            animation: slideIn 1s ease-out;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-top: 30px;
+            animation: fadeIn 1s ease-out;
+            text-align: center;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+            cursor: pointer;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .button-container {
+            margin-top: 30px;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+        .button-container a {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease-out;
+        }
+        .button-container a:hover {
+            background-color: #0056b3;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                background-color: #0056b3;
+                transform: scale(1);
+            }
+            50% {
+                background-color: #007bff;
+                transform: scale(1.05);
+            }
+            100% {
+                background-color: #0056b3;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Students for {{ school_class }}</h1>
+
+    <!-- Кнопки на главную страницу административной панели и на страницу со списком классов -->
+    <div class="button-container">
+        <a href="{% url 'admin:index' %}">Back to admin home</a>
+        <a href="{% url 'admin:djangoProject_schoolclasses_changelist' %}">Back to school classes</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">ID</th>
+                <th onclick="sortTable(1)">Gender</th>
+                <th onclick="sortTable(2)">Age</th>
+                <th onclick="sortTable(3)">Name</th>
+                <th onclick="sortTable(4)">Surname</th>
+                <th onclick="sortTable(5)">Grade</th>
+            </tr>
+        </thead>
+        <tbody id="studentTableBody">
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.gender }}</td>
+                    <td>{{ student.age }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.surname }}</td>
+                    <td>{{ student.grade }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        function sortTable(colIndex) {
+            var table = document.getElementById("studentTableBody");
+            var rows = table.rows;
+            var switching = true;
+            var shouldSwitch = false;
+            var direction = "asc";
+
+            while (switching) {
+                switching = false;
+                for (var i = 0; i < rows.length - 1; i++) {
+                    var x = rows[i].getElementsByTagName("td")[colIndex];
+                    var y = rows[i + 1].getElementsByTagName("td")[colIndex];
+                    if (direction === "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (direction === "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                } else {
+                    if (direction === "asc") {
+                        direction = "desc";
+                    } else if (direction === "desc") {
+                        direction = "asc";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

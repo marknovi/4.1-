@@ -1,0 +1,215 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>School Home Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home_styles.css' %}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #fafafa, #eaeaea, #fafafa);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            font-family: Arial, sans-serif;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        h1 {
+            color: #007bff;
+            margin-top: 30px;
+            animation: slideIn 1s ease-out;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-top: 30px;
+            animation: fadeIn 1s ease-out;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+            cursor: pointer;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .button-container {
+            margin-top: 30px;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+        .button-container a {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease-out;
+        }
+        .button-container a:hover {
+            background-color: #0056b3;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                background-color: #0056b3;
+                transform: scale(1);
+            }
+            50% {
+                background-color: #007bff;
+                transform: scale(1.05);
+            }
+            100% {
+                background-color: #0056b3;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Our School!</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="3">Classes 1-3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ classes.0 }}</td>
+                <td>{{ classes.1 }}</td>
+                <td>{{ classes.2 }}</td>
+            </tr>
+            <tr>
+                <td>{{ classes.3 }}</td>
+                <td>{{ classes.4 }}</td>
+                <td>{{ classes.5 }}</td>
+            </tr>
+            <tr>
+                <td>{{ classes.6 }}</td>
+                <td>{{ classes.7 }}</td>
+                <td>{{ classes.8 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="3">Classes 4-6</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ classes.9 }}</td>
+                <td>{{ classes.10 }}</td>
+                <td>{{ classes.11 }}</td>
+            </tr>
+            <tr>
+                <td>{{ classes.12 }}</td>
+                <td>{{ classes.13 }}</td>
+                <td>{{ classes.14 }}</td>
+            </tr>
+            <tr>
+                <td>{{ classes.15 }}</td>
+                <td>{{ classes.16 }}</td>
+                <td>{{ classes.17 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="3">Classes 7-9</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ classes.18 }}</td>
+                <td>{{ classes.19 }}</td>
+                <td>{{ classes.20 }}</td>
+            </tr>
+            <tr>
+                <td>{{ classes.21 }}</td>
+                <td>{{ classes.22 }}</td>
+                <td>{{ classes.23 }}</td>
+            </tr>
+            <tr>
+                <td>{{ classes.24 }}</td>
+                <td>{{ classes.25 }}</td>
+                <td>{{ classes.26 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="3">Classes 10-11</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ classes.27 }}</td>
+                <td>{{ classes.28 }}</td>
+                <td>{{ classes.29 }}</td>
+            </tr>
+            <tr>
+                <td>{{ classes.30 }}</td>
+                <td>{{ classes.31 }}</td>
+                <td>{{ classes.32 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Указываем общее количество учеников -->
+    <div class="button-container">
+        <p>Total number of students: {{ total_students }}</p>
+    </div>
+
+    <!-- Кнопки на главную страницу административной панели и на страницу со списком классов -->
+    <div class="button-container">
+        <a href="{% url 'admin:index' %}">Back to admin home</a>
+        <a href="{% url 'admin:djangoProject_schoolclasses_changelist' %}">Back to school classes</a>
+    </div>
+</body>
+</html>
